@@ -3,6 +3,7 @@ package com.estsoft.freemall.service.impl;
 import com.estsoft.freemall.dto.request.UsersRequest;
 import com.estsoft.freemall.entity.Users;
 import com.estsoft.freemall.repository.UsersRepository;
+import com.estsoft.freemall.service.MembershipService;
 import com.estsoft.freemall.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,11 +17,15 @@ import java.util.List;
 public class UsersServiceImpl implements UsersService {
     private final UsersRepository usersRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final MembershipService membershipService;
+
+    private final String initialMembership = "Bronze";
 
     @Override
     public Users register(UsersRequest request) {
         Users user = request.toEntity();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setMembership(membershipService.getMembership(initialMembership));
         return usersRepository.save(user);
     }
 
