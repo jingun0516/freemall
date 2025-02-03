@@ -9,12 +9,12 @@ public interface UsersService {
     Users register(UsersRequest request);
     Users login(String loginId, String password);
     Users update(Long userId, UsersRequest request);
-    void softDelete(Long userId);
-    void delete(Long userId);
+    Users softDelete(Long userId);
+    boolean delete(Long userId);
     List<Users> getAllUsers();
 
     boolean isLoginIdDuplicate(String loginId);
     boolean isEmailDuplicate(String email);
 
-    boolean changePassword(Long userId, String currentPassword, String newPassword);
+    Users changePassword(Long userId, String currentPassword, String newPassword);
 }
