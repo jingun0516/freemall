@@ -91,6 +91,7 @@ public class Users {
     public void prePersist() {
         this.registrationDate = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
+        this.lastLogin = LocalDateTime.now();
     }
 
     @PreUpdate
