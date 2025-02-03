@@ -2,9 +2,7 @@ package com.estsoft.freemall.entity;
 
 import com.estsoft.freemall.enums.Gender;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,6 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -86,8 +86,6 @@ public class Users {
         this.gender = gender;
         this.address = address;
     }
-
-    public Users() {}
 
     @PrePersist
     public void prePersist() {
