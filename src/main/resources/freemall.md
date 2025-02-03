@@ -47,7 +47,6 @@ CREATE TABLE admins
     user_id           BIGINT       NOT NULL,                      -- 사용자 ID (users 테이블과 연결)
     level             VARCHAR(100) NOT NULL,                      -- 어드민 등급 (슈퍼 어드민 / 어드민)
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,        -- 어드민 등록 날짜
-    last_login        TIMESTAMP    NULL,                          -- 마지막 로그인 시간
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE -- users 테이블과 연결
 );
 
@@ -62,7 +61,7 @@ CREATE TABLE manufacturers
 CREATE TABLE categories
 (
     id                 BIGINT AUTO_INCREMENT PRIMARY KEY,       -- 카테고리 고유 ID
-    name               VARCHAR(255) NOT NULL,                   -- 카테고리 이름
+    name               VARCHAR(255) NOT NULL UNIQUE,                   -- 카테고리 이름
     description        TEXT,                                    -- 카테고리 설명
     parent_category_id BIGINT    DEFAULT NULL,                  -- 부모 카테고리 ID (최상위 카테고리는 NULL)
     created_at         TIMESTAMP DEFAULT CURRENT_TIMESTAMP,     -- 생성일
@@ -103,7 +102,6 @@ CREATE TABLE discounts
     end_date       TIMESTAMP,                                       -- 종료 날짜
     FOREIGN KEY (product_id) REFERENCES products (id),              -- 품목과 연결
     CHECK (discount_rate IS NOT NULL OR discount_price IS NOT NULL) -- discount_rate 또는 discount_price가 반드시 있어야 함
-
 );
 
 -- 결제 방법 테이블
@@ -154,7 +152,6 @@ CREATE TABLE order_history
     cancellation_refund_info TEXT           DEFAULT NULL,                                          -- 취소 및 환불 정보 (취소나 환불 발생 시 사용)
     contact_info             VARCHAR(100)   NOT NULL,                                              -- 주문자 연락처 정보
     order_notes              TEXT           DEFAULT NULL,                                          -- 주문에 대한 추가 메모 (예: 배송 요청 사항 등)
-    gift_message             TEXT           DEFAULT NULL,                                          -- 선물 메시지 (선물 포장 시)
     created_at               TIMESTAMP      DEFAULT CURRENT_TIMESTAMP,                             -- 생성일
     updated_at               TIMESTAMP      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- 업데이트일
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,                                 -- users 테이블과 연결
@@ -169,11 +166,9 @@ CREATE TABLE order_items
     product_id  BIGINT         NOT NULL,                -- 상품 ID (products 테이블과 연결)
     quantity    INT            NOT NULL,                -- 주문 수량
     unit_price  DECIMAL(20, 4) NOT NULL,                -- 개별 상품 가격
-    discount_id BIGINT DEFAULT NULL,                    -- 적용된 할인 ID (discounts 테이블과 연결)
     total_price DECIMAL(20, 4) NOT NULL,                -- 총 가격 (할인 적용 후 계산)
     FOREIGN KEY (order_id) REFERENCES order_history (id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES products (id),
-    FOREIGN KEY (discount_id) REFERENCES discounts (id) -- 할인 정보와 연결
+    FOREIGN KEY (product_id) REFERENCES products (id)
 );
 
 
