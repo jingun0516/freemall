@@ -30,4 +30,11 @@ public class UsersRequest {
                 .gender(gender)
                 .address(address).build();
     }
+
+    public Users updateEntity(Users user) {
+        if(!address.isEmpty()) {
+            user.setAddress(address);
+        }
+        return user;
+    }
 }
