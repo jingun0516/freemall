@@ -2,9 +2,9 @@ package com.estsoft.freemall.entity;
 
 import com.estsoft.freemall.enums.Gender;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.query.Order;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,6 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Builder
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,6 +74,20 @@ public class Users {
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
+
+    public Users(String loginId, String name, String email, String password, String phoneNumber, LocalDate dateOfBirth,
+                 Gender gender, String address) {
+        this.loginId = loginId;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.address = address;
+    }
+
+    public Users() {}
 
     @PrePersist
     public void prePersist() {
