@@ -56,7 +56,7 @@ public class OrderHistory {
     @Column(name = "order_notes")
     private String orderNotes;
 
-    @OneToMany(mappedBy = "order_history", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "orderHistory", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItems> orderItems;
 
     @Column(name = "created_at")
