@@ -22,6 +22,11 @@ public class UsersServiceImpl implements UsersService {
     private final String initialMembership = "Bronze";
 
     @Override
+    public Users getById(Long id) {
+        return usersRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public Users register(UsersRequest request) {
         Users user = request.toEntity();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
