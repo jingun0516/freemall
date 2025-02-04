@@ -2,19 +2,28 @@ package com.estsoft.freemall.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Manufacturers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column
     private String description;
+
+    public Manufacturers(String name, String description) {
+        this.name = name;
+        if(!description.isEmpty()) {
+            this.description = description;
+        }
+    }
 }
