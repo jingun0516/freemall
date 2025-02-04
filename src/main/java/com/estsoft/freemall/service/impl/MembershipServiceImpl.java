@@ -21,4 +21,28 @@ public class MembershipServiceImpl implements MembershipService {
     public Membership getMembership(String level) {
         return membershipRepository.findByLevel(level);
     }
+
+    @Override
+    public Membership getMembershipById(Long id) {
+        return membershipRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Membership updateMembership(Long id, MembershipRequest request) {
+        Membership membership = getMembershipById(id);
+        if(membership == null) {
+            return null;
+        }
+        return membershipRepository.save(request.updateEntity(membership));
+    }
+
+    @Override
+    public boolean deleteMembership(Long id) {
+        Membership membership = getMembershipById(id);
+        if(membership == null) {
+            return false;
+        }
+        membershipRepository.delete(membership);
+        return true;
+    }
 }
