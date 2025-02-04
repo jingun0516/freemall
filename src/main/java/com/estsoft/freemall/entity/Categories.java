@@ -2,6 +2,7 @@ package com.estsoft.freemall.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Categories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +23,7 @@ public class Categories {
     private String description;
 
     @OneToOne
-    @JoinColumn
+    @JoinColumn(name = "parent_category_id")
     private Categories categories;
 
     @Column(name = "created_at")
@@ -30,5 +32,12 @@ public class Categories {
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
+    }
+
+    public Categories(String name, String description) {
+        this.name = name;
+        if(description != null) {
+            this.description = description;
+        }
     }
 }
