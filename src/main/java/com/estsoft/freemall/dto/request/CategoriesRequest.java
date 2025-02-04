@@ -12,7 +12,6 @@ public class CategoriesRequest {
     private String parentCategoryName;
 
     public Categories toEntity() {
-        Categories entity = new Categories(name, description);
-        return entity;
+        return new Categories(name, description);
     }
 }
