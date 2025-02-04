@@ -5,5 +5,5 @@ import com.estsoft.freemall.entity.Categories;
 
 public interface CategoriesService {
     Categories addCategory(CategoriesRequest request);
-    Categories findCategoryByName(String name);
+    Categories getCategoryByName(String name);
 }

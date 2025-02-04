@@ -17,7 +17,7 @@ public class CategoriesServiceImpl implements CategoriesService {
         Categories category = request.toEntity();
         String parentCategoryName = request.getParentCategoryName();
         if(!parentCategoryName.isEmpty()) {
-            Categories parentCategory = findCategoryByName(parentCategoryName);
+            Categories parentCategory = getCategoryByName(parentCategoryName);
             if(parentCategory != null) {
                 category.setCategories(parentCategory);
             }
@@ -27,7 +27,7 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
-    public Categories findCategoryByName(String name) {
+    public Categories getCategoryByName(String name) {
         return categoriesRepository.findByName(name);
     }
 }
