@@ -2,13 +2,16 @@ package com.estsoft.freemall.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Sellers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +29,17 @@ public class Sellers {
 
     @Column(name = "registration_date", nullable = false)
     private LocalDateTime registrationDate;
+
+    @OneToMany(mappedBy = "seller")
+    private List<Products> products;
+
+    @PrePersist
+    public void prePersist(){
+        registrationDate = LocalDateTime.now();
+    }
+
+    public Sellers(String storeName, String storeDescription) {
+        this.storeName = storeName;
+        this.storeDescription = storeDescription;
+    }
 }
