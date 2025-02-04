@@ -5,10 +5,7 @@ import com.estsoft.freemall.entity.Users;
 import com.estsoft.freemall.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
@@ -19,5 +16,10 @@ public class UsersApiController {
     @PostMapping
     public ResponseEntity<Users> register(@RequestBody UsersRequest request) {
         return ResponseEntity.ok(usersService.register(request));
+    }
+
+    @GetMapping
+    public ResponseEntity<Users> getById(@RequestParam("id") Long id) {
+        return ResponseEntity.ok(usersService.getById(id));
     }
 }
