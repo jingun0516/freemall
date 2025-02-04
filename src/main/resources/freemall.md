@@ -19,7 +19,7 @@ CREATE TABLE users
     password          VARCHAR(255)        NOT NULL,                           -- 암호화된 비밀번호
     phone_number      VARCHAR(20),                                            -- 전화번호
     date_of_birth     DATE,                                                   -- 생년월일
-    gender            ENUM ('male', 'female'),                                -- 성별
+    gender            VARCHAR(20),                                            -- 성별
     registration_date TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP, -- 가입 날짜
     last_login        TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP, -- 마지막 로그인 시간 (NULL 허용)
     deleted_at        TIMESTAMP                    DEFAULT NULL,              -- 삭제일시 (NULL이면 삭제되지 않음)
@@ -33,7 +33,7 @@ CREATE TABLE users
 CREATE TABLE sellers
 (
     id                BIGINT AUTO_INCREMENT PRIMARY KEY,          -- 판매자 고유 ID
-    user_id           BIGINT       NOT NULL,                      -- 사용자 ID (users 테이블과 연결)
+    user_id           BIGINT       NOT NULL UNIQUE,                      -- 사용자 ID (users 테이블과 연결)
     store_name        VARCHAR(255) NOT NULL UNIQUE,               -- 상점 이름
     store_description TEXT,                                       -- 상점 설명
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,        -- 판매자 등록 날짜
@@ -44,7 +44,7 @@ CREATE TABLE sellers
 CREATE TABLE admins
 (
     id                BIGINT AUTO_INCREMENT PRIMARY KEY,          -- 어드민 고유 ID
-    user_id           BIGINT       NOT NULL,                      -- 사용자 ID (users 테이블과 연결)
+    user_id           BIGINT       NOT NULL UNIQUE,                      -- 사용자 ID (users 테이블과 연결)
     level             VARCHAR(100) NOT NULL,                      -- 어드민 등급 (슈퍼 어드민 / 어드민)
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,        -- 어드민 등록 날짜
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE -- users 테이블과 연결
@@ -54,14 +54,14 @@ CREATE TABLE admins
 CREATE TABLE manufacturers
 (
     id          BIGINT AUTO_INCREMENT PRIMARY KEY, -- 제조사 고유 ID
-    name        VARCHAR(255) NOT NULL UNIQUE,             -- 제조사 이름
+    name        VARCHAR(255) NOT NULL UNIQUE,      -- 제조사 이름
     description TEXT                               -- 제조사 설명
 );
 
 CREATE TABLE categories
 (
     id                 BIGINT AUTO_INCREMENT PRIMARY KEY,       -- 카테고리 고유 ID
-    name               VARCHAR(255) NOT NULL UNIQUE,                   -- 카테고리 이름
+    name               VARCHAR(255) NOT NULL UNIQUE,            -- 카테고리 이름
     description        TEXT,                                    -- 카테고리 설명
     parent_category_id BIGINT    DEFAULT NULL,                  -- 부모 카테고리 ID (최상위 카테고리는 NULL)
     created_at         TIMESTAMP DEFAULT CURRENT_TIMESTAMP,     -- 생성일
@@ -73,12 +73,14 @@ CREATE TABLE products
     id              BIGINT AUTO_INCREMENT PRIMARY KEY,                               -- 품목 고유 ID
     name            VARCHAR(255)   NOT NULL,                                         -- 품목 이름
     description     TEXT,                                                            -- 품목 설명
+    seller_id       BIGINT         NOT NULL,                                         -- 판매자 id
     price           DECIMAL(20, 4) NOT NULL,                                         -- 가격
     stock_quantity  INT            NOT NULL,                                         -- 재고 수량
     category_id     BIGINT,                                                          -- 카테고리 ID
     manufacturer_id BIGINT,                                                          -- 제조사 ID
     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,                             -- 생성일
     updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- 업데이트일
+    FOREIGN KEY (seller_id) REFERENCES sellers (id),
     FOREIGN KEY (category_id) REFERENCES categories (id),                            -- 카테고리와 연결
     FOREIGN KEY (manufacturer_id) REFERENCES manufacturers (id)                      -- 제조사와 연결
 );
@@ -161,12 +163,12 @@ CREATE TABLE order_history
 
 CREATE TABLE order_items
 (
-    id          BIGINT AUTO_INCREMENT PRIMARY KEY,      -- 주문 상세 ID
-    order_id    BIGINT         NOT NULL,                -- 주문 ID (order_history 테이블과 연결)
-    product_id  BIGINT         NOT NULL,                -- 상품 ID (products 테이블과 연결)
-    quantity    INT            NOT NULL,                -- 주문 수량
-    unit_price  DECIMAL(20, 4) NOT NULL,                -- 개별 상품 가격
-    total_price DECIMAL(20, 4) NOT NULL,                -- 총 가격 (할인 적용 후 계산)
+    id          BIGINT AUTO_INCREMENT PRIMARY KEY, -- 주문 상세 ID
+    order_id    BIGINT         NOT NULL,           -- 주문 ID (order_history 테이블과 연결)
+    product_id  BIGINT         NOT NULL,           -- 상품 ID (products 테이블과 연결)
+    quantity    INT            NOT NULL,           -- 주문 수량
+    unit_price  DECIMAL(20, 4) NOT NULL,           -- 개별 상품 가격
+    total_price DECIMAL(20, 4) NOT NULL,           -- 총 가격 (할인 적용 후 계산)
     FOREIGN KEY (order_id) REFERENCES order_history (id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products (id)
 );
