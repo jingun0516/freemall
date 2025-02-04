@@ -54,7 +54,7 @@ CREATE TABLE admins
 CREATE TABLE manufacturers
 (
     id          BIGINT AUTO_INCREMENT PRIMARY KEY, -- 제조사 고유 ID
-    name        VARCHAR(255) NOT NULL,             -- 제조사 이름
+    name        VARCHAR(255) NOT NULL UNIQUE,             -- 제조사 이름
     description TEXT                               -- 제조사 설명
 );
 
