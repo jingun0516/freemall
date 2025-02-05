@@ -1,5 +1,4 @@
 ```mysql
-
 -- 회원 등급 테이블
 CREATE TABLE membership
 (
@@ -33,7 +32,7 @@ CREATE TABLE users
 CREATE TABLE sellers
 (
     id                BIGINT AUTO_INCREMENT PRIMARY KEY,          -- 판매자 고유 ID
-    user_id           BIGINT       NOT NULL UNIQUE,                      -- 사용자 ID (users 테이블과 연결)
+    user_id           BIGINT       NOT NULL UNIQUE,               -- 사용자 ID (users 테이블과 연결)
     store_name        VARCHAR(255) NOT NULL UNIQUE,               -- 상점 이름
     store_description TEXT,                                       -- 상점 설명
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,        -- 판매자 등록 날짜
@@ -44,7 +43,7 @@ CREATE TABLE sellers
 CREATE TABLE admins
 (
     id                BIGINT AUTO_INCREMENT PRIMARY KEY,          -- 어드민 고유 ID
-    user_id           BIGINT       NOT NULL UNIQUE,                      -- 사용자 ID (users 테이블과 연결)
+    user_id           BIGINT       NOT NULL UNIQUE,               -- 사용자 ID (users 테이블과 연결)
     level             VARCHAR(100) NOT NULL,                      -- 어드민 등급 (슈퍼 어드민 / 어드민)
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,        -- 어드민 등록 날짜
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE -- users 테이블과 연결
