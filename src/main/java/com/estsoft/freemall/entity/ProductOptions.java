@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -19,6 +21,6 @@ public class ProductOptions {
     @Column
     private String attribute;
 
-    @Column
-    private String value;
+    @OneToMany(mappedBy = "productOption", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductOptionValues> values;
 }
