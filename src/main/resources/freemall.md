@@ -89,8 +89,15 @@ CREATE TABLE product_options
     id         BIGINT AUTO_INCREMENT PRIMARY KEY,     -- 옵션 고유 ID
     product_id BIGINT NOT NULL,                       -- 품목 ID
     attribute  VARCHAR(255),                          -- 옵션 속성 (예: 색상, 사이즈 등)
-    value      VARCHAR(255),                          -- 옵션 값 (예: 빨강, XL 등)
     FOREIGN KEY (product_id) REFERENCES products (id) -- 품목과 연결
+);
+
+CREATE TABLE product_option_values
+(
+    id                BIGINT AUTO_INCREMENT PRIMARY KEY,
+    product_option_id BIGINT NOT NULL,
+    value             VARCHAR(255),
+    FOREIGN KEY (product_option_id) REFERENCES product_options (id)
 );
 
 CREATE TABLE discounts
