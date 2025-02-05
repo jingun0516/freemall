@@ -2,11 +2,13 @@ package com.estsoft.freemall.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class ProductOptionValues {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,4 +19,8 @@ public class ProductOptionValues {
     private ProductOptions productOption;
 
     private String value;
+
+    public ProductOptionValues(String value) {
+        this.value = value;
+    }
 }
