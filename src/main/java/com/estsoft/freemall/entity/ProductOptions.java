@@ -5,7 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -16,12 +19,11 @@ public class ProductOptions {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Products product;
-
     @Column(nullable = false)
     private String attribute;
+
+    @OneToMany(mappedBy = "productOption", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductOptionMapping> optionMappings = new ArrayList<>();
 
     @OneToMany(mappedBy = "productOption", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductOptionValues> values;
