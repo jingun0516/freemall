@@ -86,19 +86,32 @@ CREATE TABLE products
 
 CREATE TABLE product_options
 (
-    id         BIGINT AUTO_INCREMENT PRIMARY KEY,     -- 옵션 고유 ID
-    product_id BIGINT NOT NULL,                       -- 품목 ID
-    attribute  VARCHAR(255),                          -- 옵션 속성 (예: 색상, 사이즈 등)
-    FOREIGN KEY (product_id) REFERENCES products (id) -- 품목과 연결
+    id        BIGINT AUTO_INCREMENT PRIMARY KEY, -- 옵션 고유 ID
+    attribute VARCHAR(255)                       -- 옵션 속성 (예: 색상, 사이즈 등)
 );
+
+CREATE TABLE product_option_mapping
+(
+    id                BIGINT AUTO_INCREMENT PRIMARY KEY, -- 옵션 고유 ID
+    product_id        BIGINT NOT NULL,
+    product_option_id BIGINT NOT NULL,
+    UNIQUE (product_id, product_option_id),
+    PRIMARY KEY (product_id, product_option_id),
+    FOREIGN KEY (product_id) REFERENCES products (id),
+    FOREIGN KEY (product_option_id) REFERENCES product_options (id)
+);
+
+
 
 CREATE TABLE product_option_values
 (
     id                BIGINT AUTO_INCREMENT PRIMARY KEY,
     product_option_id BIGINT NOT NULL,
     value             VARCHAR(255),
+    UNIQUE (product_option_id, value),
     FOREIGN KEY (product_option_id) REFERENCES product_options (id)
 );
+
 
 CREATE TABLE discounts
 (
@@ -169,14 +182,16 @@ CREATE TABLE order_history
 
 CREATE TABLE order_items
 (
-    id          BIGINT AUTO_INCREMENT PRIMARY KEY, -- 주문 상세 ID
-    order_id    BIGINT         NOT NULL,           -- 주문 ID (order_history 테이블과 연결)
-    product_id  BIGINT         NOT NULL,           -- 상품 ID (products 테이블과 연결)
-    quantity    INT            NOT NULL,           -- 주문 수량
-    unit_price  DECIMAL(20, 4) NOT NULL,           -- 개별 상품 가격
-    total_price DECIMAL(20, 4) NOT NULL,           -- 총 가격 (할인 적용 후 계산)
+    id                      BIGINT AUTO_INCREMENT PRIMARY KEY, -- 주문 상세 ID
+    order_id                BIGINT         NOT NULL,           -- 주문 ID (order_history 테이블과 연결)
+    product_id              BIGINT         NOT NULL,           -- 상품 ID (products 테이블과 연결)
+    product_option_value_id BIGINT,
+    quantity                INT            NOT NULL,           -- 주문 수량
+    unit_price              DECIMAL(20, 4) NOT NULL,           -- 개별 상품 가격
+    total_price             DECIMAL(20, 4) NOT NULL,           -- 총 가격 (할인 적용 후 계산)
     FOREIGN KEY (order_id) REFERENCES order_history (id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES products (id)
+    FOREIGN KEY (product_id) REFERENCES products (id),
+    FOREIGN KEY (product_option_value_id) REFERENCES product_option_values (id)
 );
 
 
