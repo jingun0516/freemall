@@ -1,5 +1,4 @@
 ```mysql
-
 -- 회원 등급 테이블
 CREATE TABLE membership
 (
@@ -33,7 +32,7 @@ CREATE TABLE users
 CREATE TABLE sellers
 (
     id                BIGINT AUTO_INCREMENT PRIMARY KEY,          -- 판매자 고유 ID
-    user_id           BIGINT       NOT NULL UNIQUE,                      -- 사용자 ID (users 테이블과 연결)
+    user_id           BIGINT       NOT NULL UNIQUE,               -- 사용자 ID (users 테이블과 연결)
     store_name        VARCHAR(255) NOT NULL UNIQUE,               -- 상점 이름
     store_description TEXT,                                       -- 상점 설명
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,        -- 판매자 등록 날짜
@@ -44,7 +43,7 @@ CREATE TABLE sellers
 CREATE TABLE admins
 (
     id                BIGINT AUTO_INCREMENT PRIMARY KEY,          -- 어드민 고유 ID
-    user_id           BIGINT       NOT NULL UNIQUE,                      -- 사용자 ID (users 테이블과 연결)
+    user_id           BIGINT       NOT NULL UNIQUE,               -- 사용자 ID (users 테이블과 연결)
     level             VARCHAR(100) NOT NULL,                      -- 어드민 등급 (슈퍼 어드민 / 어드민)
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,        -- 어드민 등록 날짜
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE -- users 테이블과 연결
@@ -87,12 +86,32 @@ CREATE TABLE products
 
 CREATE TABLE product_options
 (
-    id         BIGINT AUTO_INCREMENT PRIMARY KEY,     -- 옵션 고유 ID
-    product_id BIGINT NOT NULL,                       -- 품목 ID
-    attribute  VARCHAR(255),                          -- 옵션 속성 (예: 색상, 사이즈 등)
-    value      VARCHAR(255),                          -- 옵션 값 (예: 빨강, XL 등)
-    FOREIGN KEY (product_id) REFERENCES products (id) -- 품목과 연결
+    id        BIGINT AUTO_INCREMENT PRIMARY KEY, -- 옵션 고유 ID
+    attribute VARCHAR(255)                       -- 옵션 속성 (예: 색상, 사이즈 등)
 );
+
+CREATE TABLE product_option_mapping
+(
+    id                BIGINT AUTO_INCREMENT PRIMARY KEY, -- 옵션 고유 ID
+    product_id        BIGINT NOT NULL,
+    product_option_id BIGINT NOT NULL,
+    UNIQUE (product_id, product_option_id),
+    PRIMARY KEY (product_id, product_option_id),
+    FOREIGN KEY (product_id) REFERENCES products (id),
+    FOREIGN KEY (product_option_id) REFERENCES product_options (id)
+);
+
+
+
+CREATE TABLE product_option_values
+(
+    id                BIGINT AUTO_INCREMENT PRIMARY KEY,
+    product_option_id BIGINT NOT NULL,
+    value             VARCHAR(255),
+    UNIQUE (product_option_id, value),
+    FOREIGN KEY (product_option_id) REFERENCES product_options (id)
+);
+
 
 CREATE TABLE discounts
 (
@@ -111,7 +130,7 @@ CREATE TABLE payment_methods
 (
     id         BIGINT AUTO_INCREMENT PRIMARY KEY,
     method     VARCHAR(50) NOT NULL, -- 결제 방법 (카드, 계좌 등)
-    is_active  BOOLEAN   DEFAULT TRUE,
+    is_active  BOOLEAN   NOT NULL DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -122,6 +141,7 @@ CREATE TABLE payment_method_providers
     id                BIGINT AUTO_INCREMENT PRIMARY KEY,
     payment_method_id BIGINT       NOT NULL, -- 결제 방법 ID
     provider          VARCHAR(100) NOT NULL, -- 제공자 (카드사, 은행 등)
+    isActive BOOLEAN NOT NULL DEFAULT TRUE,
     FOREIGN KEY (payment_method_id) REFERENCES payment_methods (id) ON DELETE CASCADE,
     UNIQUE (payment_method_id, provider)     -- 동일한 결제 방법에 중복된 제공자 없음
 );
@@ -163,14 +183,16 @@ CREATE TABLE order_history
 
 CREATE TABLE order_items
 (
-    id          BIGINT AUTO_INCREMENT PRIMARY KEY, -- 주문 상세 ID
-    order_id    BIGINT         NOT NULL,           -- 주문 ID (order_history 테이블과 연결)
-    product_id  BIGINT         NOT NULL,           -- 상품 ID (products 테이블과 연결)
-    quantity    INT            NOT NULL,           -- 주문 수량
-    unit_price  DECIMAL(20, 4) NOT NULL,           -- 개별 상품 가격
-    total_price DECIMAL(20, 4) NOT NULL,           -- 총 가격 (할인 적용 후 계산)
+    id                      BIGINT AUTO_INCREMENT PRIMARY KEY, -- 주문 상세 ID
+    order_id                BIGINT         NOT NULL,           -- 주문 ID (order_history 테이블과 연결)
+    product_id              BIGINT         NOT NULL,           -- 상품 ID (products 테이블과 연결)
+    product_option_value_id BIGINT,
+    quantity                INT            NOT NULL,           -- 주문 수량
+    unit_price              DECIMAL(20, 4) NOT NULL,           -- 개별 상품 가격
+    total_price             DECIMAL(20, 4) NOT NULL,           -- 총 가격 (할인 적용 후 계산)
     FOREIGN KEY (order_id) REFERENCES order_history (id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES products (id)
+    FOREIGN KEY (product_id) REFERENCES products (id),
+    FOREIGN KEY (product_option_value_id) REFERENCES product_option_values (id)
 );
 
 
@@ -220,7 +242,7 @@ CREATE TABLE reviews
 -- 장바구니 테이블
 CREATE TABLE cart
 (
-    id         BIGINT PRIMARY KEY,
+    id         BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id    BIGINT UNIQUE, -- 회원 ID (1인당 하나의 장바구니)
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
