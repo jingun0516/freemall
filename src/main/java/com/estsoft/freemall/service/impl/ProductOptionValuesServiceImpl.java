@@ -16,9 +16,9 @@ public class ProductOptionValuesServiceImpl implements ProductOptionValuesServic
     private final ProductOptionsService productOptionsService;
 
     @Override
-    public ProductOptionValues addProductOptionValues(ProductOptionValuesRequest request) {
+    public ProductOptionValues addProductOptionValue(ProductOptionValuesRequest request) {
         ProductOptionValues productOptionValues = request.toEntity();
-        ProductOptions productOptions = productOptionsService.getProductOptionsById(request.getProductOptionId());
+        ProductOptions productOptions = productOptionsService.getProductOptionById(request.getProductOptionId());
         if(productOptions == null) {
             return null;
         }

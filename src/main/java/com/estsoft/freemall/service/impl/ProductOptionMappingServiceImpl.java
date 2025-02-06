@@ -20,7 +20,7 @@ public class ProductOptionMappingServiceImpl implements ProductOptionMappingServ
     @Override
     public ProductOptionMapping saveProductOptionMapping(Long productId, Long optionId) {
         Products product = productsService.getProductById(productId);
-        ProductOptions productOption = productOptionsService.getProductOptionsById(optionId);
+        ProductOptions productOption = productOptionsService.getProductOptionById(optionId);
 
         if(product == null || productOption == null){
             return null;

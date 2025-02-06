@@ -14,12 +14,12 @@ public class ProductOptionsServiceImpl implements ProductOptionsService {
     private final ProductOptionsRepository productOptionsRepository;
 
     @Override
-    public ProductOptions addProductOptions(ProductOptionsRequest request) {
+    public ProductOptions addProductOption(ProductOptionsRequest request) {
         return productOptionsRepository.save(request.toEntity());
     }
 
     @Override
-    public ProductOptions getProductOptionsById(Long id) {
+    public ProductOptions getProductOptionById(Long id) {
         return productOptionsRepository.findById(id).orElse(null);
     }
 }
