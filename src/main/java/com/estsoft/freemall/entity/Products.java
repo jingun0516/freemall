@@ -44,7 +44,7 @@ public class Products {
     private Manufacturers manufacturer;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductOptions> productOptions = new ArrayList<>();
+    private List<ProductOptionMapping> optionMappings = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reviews> reviews = new ArrayList<>();
