@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProductOptionsRequest {
-    private long productId;
     private String attribute;
 
     public ProductOptions toEntity() {
