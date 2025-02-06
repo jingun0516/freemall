@@ -9,6 +9,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "product_option_values",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "unique_product_option_value",
+                        columnNames = {"product_option_id", "value"})
+        })
 public class ProductOptionValues {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
