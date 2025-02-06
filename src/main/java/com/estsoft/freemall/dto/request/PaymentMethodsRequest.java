@@ -12,5 +12,4 @@ public class PaymentMethodsRequest {
     public PaymentMethods toEntity() {
         return new PaymentMethods(method);
     }
-
 }
