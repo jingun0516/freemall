@@ -2,7 +2,6 @@ package com.estsoft.freemall.service.impl;
 
 import com.estsoft.freemall.dto.request.ProductOptionsRequest;
 import com.estsoft.freemall.entity.ProductOptions;
-import com.estsoft.freemall.entity.Products;
 import com.estsoft.freemall.repository.ProductOptionsRepository;
 import com.estsoft.freemall.service.ProductOptionsService;
 import lombok.RequiredArgsConstructor;
