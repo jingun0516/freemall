@@ -130,7 +130,7 @@ CREATE TABLE payment_methods
 (
     id         BIGINT AUTO_INCREMENT PRIMARY KEY,
     method     VARCHAR(50) NOT NULL, -- 결제 방법 (카드, 계좌 등)
-    is_active  BOOLEAN   DEFAULT TRUE,
+    is_active  BOOLEAN   NOT NULL DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -141,6 +141,7 @@ CREATE TABLE payment_method_providers
     id                BIGINT AUTO_INCREMENT PRIMARY KEY,
     payment_method_id BIGINT       NOT NULL, -- 결제 방법 ID
     provider          VARCHAR(100) NOT NULL, -- 제공자 (카드사, 은행 등)
+    isActive BOOLEAN NOT NULL DEFAULT TRUE,
     FOREIGN KEY (payment_method_id) REFERENCES payment_methods (id) ON DELETE CASCADE,
     UNIQUE (payment_method_id, provider)     -- 동일한 결제 방법에 중복된 제공자 없음
 );
