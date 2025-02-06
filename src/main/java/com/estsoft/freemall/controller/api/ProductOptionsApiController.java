@@ -22,11 +22,11 @@ public class ProductOptionsApiController {
 
     @PostMapping
     public ResponseEntity<ProductOptions> addProductOptions(@RequestBody ProductOptionsRequest request) {
-        return ResponseEntity.ok(productOptionsService.addProductOptions(request));
+        return ResponseEntity.ok(productOptionsService.addProductOption(request));
     }
 
     @PostMapping("/values")
     public ResponseEntity<ProductOptionValues> addProductOptionValues(@RequestBody ProductOptionValuesRequest request) {
-        return ResponseEntity.ok(productOptionValuesService.addProductOptionValues(request));
+        return ResponseEntity.ok(productOptionValuesService.addProductOptionValue(request));
     }
 }
