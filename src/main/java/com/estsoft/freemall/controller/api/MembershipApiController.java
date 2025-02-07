@@ -18,6 +18,6 @@ public class MembershipApiController {
 
     @PostMapping
     public ResponseEntity<Membership> register(@RequestBody MembershipRequest reuqest) {
-        return ResponseEntity.ok(membershipService.register(reuqest));
+        return ResponseEntity.ok(membershipService.addMembership(reuqest));
     }
 }

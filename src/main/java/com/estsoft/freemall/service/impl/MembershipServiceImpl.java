@@ -13,7 +13,7 @@ public class MembershipServiceImpl implements MembershipService {
     private final MembershipRepository membershipRepository;
 
     @Override
-    public Membership register(MembershipRequest request) {
+    public Membership addMembership(MembershipRequest request) {
         return membershipRepository.save(request.toEntity());
     }
 
