@@ -2,6 +2,7 @@ package com.estsoft.freemall.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @Table(
         uniqueConstraints = @UniqueConstraint(columnNames = {"payment_method_id", "user_id"})
 )
+@NoArgsConstructor
 public class UserPaymentMethods {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +33,11 @@ public class UserPaymentMethods {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    public UserPaymentMethods(Users user, PaymentMethods paymentMethod) {
+        this.user = user;
+        this.paymentMethod = paymentMethod;
+    }
+
     @PrePersist
     public void prePersist() {
         createdAt = LocalDateTime.now();
@@ -41,10 +48,4 @@ public class UserPaymentMethods {
     public void preUpdate() {
         updatedAt = LocalDateTime.now();
     }
-
-    public UserPaymentMethods(Users user, PaymentMethods paymentMethod) {
-        this.user = user;
-        this.paymentMethod = paymentMethod;
-    }
-
 }
