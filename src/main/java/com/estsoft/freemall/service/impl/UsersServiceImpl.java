@@ -22,7 +22,7 @@ public class UsersServiceImpl implements UsersService {
     private final String initialMembership = "Bronze";
 
     @Override
-    public Users getById(Long id) {
+    public Users getUserById(Long id) {
         return usersRepository.findById(id).orElse(null);
     }
 

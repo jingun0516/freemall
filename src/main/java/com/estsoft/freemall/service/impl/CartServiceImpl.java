@@ -16,7 +16,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Cart addCart(Long userId) {
-        Users user = usersService.getById(userId);
+        Users user = usersService.getUserById(userId);
         if(user == null) {
             return null;
         }

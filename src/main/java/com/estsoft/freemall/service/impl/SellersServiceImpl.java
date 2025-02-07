@@ -17,7 +17,7 @@ public class SellersServiceImpl implements SellersService {
 
     @Override
     public Sellers registerSeller(Long userId, SellersRequest request) {
-        Users user = usersService.getById(userId);
+        Users user = usersService.getUserById(userId);
         if(user == null) {
             return null;
         }

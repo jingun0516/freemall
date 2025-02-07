@@ -25,6 +25,6 @@ public class UsersApiController {
 
     @GetMapping
     public ResponseEntity<Users> getById(@RequestParam("id") Long id) {
-        return ResponseEntity.ok(usersService.getById(id));
+        return ResponseEntity.ok(usersService.getUserById(id));
     }
 }

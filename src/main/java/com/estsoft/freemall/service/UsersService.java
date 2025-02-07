@@ -6,7 +6,7 @@ import com.estsoft.freemall.entity.Users;
 import java.util.List;
 
 public interface UsersService {
-    Users getById(Long id);
+    Users getUserById(Long id);
     Users register(UsersRequest request);
     Users login(String loginId, String password);
     Users update(Long userId, UsersRequest request);
