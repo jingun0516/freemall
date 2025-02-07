@@ -42,4 +42,9 @@ public class UserPaymentMethods {
         updatedAt = LocalDateTime.now();
     }
 
+    public UserPaymentMethods(Users user, PaymentMethods paymentMethod) {
+        this.user = user;
+        this.paymentMethod = paymentMethod;
+    }
+
 }
