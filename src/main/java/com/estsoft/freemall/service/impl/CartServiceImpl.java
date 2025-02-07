@@ -25,4 +25,9 @@ public class CartServiceImpl implements CartService {
 
         return cartRepository.save(cart);
     }
+
+    @Override
+    public Cart getCartByUserId(Long userId) {
+        return cartRepository.getByUserId(userId);
+    }
 }
