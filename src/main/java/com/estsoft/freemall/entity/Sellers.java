@@ -33,13 +33,13 @@ public class Sellers {
     @OneToMany(mappedBy = "seller")
     private List<Products> products;
 
-    @PrePersist
-    public void prePersist(){
-        registrationDate = LocalDateTime.now();
-    }
-
     public Sellers(String storeName, String storeDescription) {
         this.storeName = storeName;
         this.storeDescription = storeDescription;
+    }
+
+    @PrePersist
+    public void prePersist(){
+        registrationDate = LocalDateTime.now();
     }
 }

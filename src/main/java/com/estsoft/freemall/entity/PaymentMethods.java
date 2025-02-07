@@ -25,12 +25,12 @@ public class PaymentMethods {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    public PaymentMethods(String method) {
+        this.method = method;
+    }
+
     @PrePersist
     public void prePersist() {
         createdAt = LocalDateTime.now();
-    }
-
-    public PaymentMethods(String method) {
-        this.method = method;
     }
 }

@@ -25,15 +25,15 @@ public class Membership {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-    }
-
     public Membership(String level, String benefits) {
         this.level = level;
         if (!benefits.isEmpty()) {
             this.benefits = benefits;
         }
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
     }
 }
