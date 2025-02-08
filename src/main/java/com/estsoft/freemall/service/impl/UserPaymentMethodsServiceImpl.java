@@ -27,4 +27,9 @@ public class UserPaymentMethodsServiceImpl implements UserPaymentMethodsService 
 
         return userPaymentMethodsRepository.save(new UserPaymentMethods(user, paymentMethod));
     }
+
+    @Override
+    public UserPaymentMethods getUserPaymentMethodsByUserId(Long userId) {
+        return userPaymentMethodsRepository.findByUserId(userId);
+    }
 }
