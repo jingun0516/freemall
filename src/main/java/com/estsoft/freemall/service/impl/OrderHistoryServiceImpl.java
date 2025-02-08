@@ -33,4 +33,9 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
 
         return orderHistoryRepository.save(orderHistory);
     }
+
+    @Override
+    public OrderHistory getOrderHistoryById(Long orderId) {
+        return orderHistoryRepository.findById(orderId).orElse(null);
+    }
 }
