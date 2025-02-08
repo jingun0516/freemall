@@ -4,14 +4,13 @@ import com.estsoft.freemall.dto.request.PaymentMethodProvidersRequest;
 import com.estsoft.freemall.dto.request.PaymentMethodsRequest;
 import com.estsoft.freemall.entity.PaymentMethodProviders;
 import com.estsoft.freemall.entity.PaymentMethods;
+import com.estsoft.freemall.entity.UserPaymentMethods;
 import com.estsoft.freemall.service.PaymentMethodProvidersService;
 import com.estsoft.freemall.service.PaymentMethodsService;
+import com.estsoft.freemall.service.UserPaymentMethodsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PaymentMethodsApiController {
     private final PaymentMethodsService paymentMethodsService;
     private final PaymentMethodProvidersService paymentMethodProvidersService;
+    private final UserPaymentMethodsService userPaymentMethodsService;
 
     @PostMapping
     public ResponseEntity<PaymentMethods> addPaymentMethod(@RequestBody PaymentMethodsRequest request) {
@@ -28,5 +28,11 @@ public class PaymentMethodsApiController {
     @PostMapping("/provider")
     public ResponseEntity<PaymentMethodProviders> addPaymentMethodProvider(@RequestBody PaymentMethodProvidersRequest request) {
         return ResponseEntity.ok(paymentMethodProvidersService.addPaymentMethodProvider(request));
+    }
+
+    @PostMapping("/{userId}/{paymentMethodId}")
+    public ResponseEntity<UserPaymentMethods> saveUserPaymentMethods(@PathVariable Long userId, @PathVariable Long paymentMethodId) {
+        return ResponseEntity.ok(
+                userPaymentMethodsService.saveUserPaymentMethods(userId, paymentMethodId));
     }
 }
