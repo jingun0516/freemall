@@ -47,6 +47,6 @@ public class OrderItemsServiceImpl implements OrderItemsService {
 
         orderItem.setTotalPrice(totalPrice);
 
-        return orderItem;
+        return orderItemsRepository.save(orderItem);
     }
 }
