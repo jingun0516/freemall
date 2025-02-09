@@ -25,7 +25,7 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
         OrderHistory orderHistory = request.toEntity();
         Users user = usersService.getUserById(userId);
         UserPaymentMethods userPaymentMethod = userPaymentMethodsService.getUserPaymentMethodsByUserId(userId);
-        if(user == null || userPaymentMethod == null) {
+        if (user == null || userPaymentMethod == null) {
             throw new EntityNotFoundException("user not found");
         }
         orderHistory.setUser(user);
@@ -37,5 +37,23 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
     @Override
     public OrderHistory getOrderHistoryById(Long orderId) {
         return orderHistoryRepository.findById(orderId).orElse(null);
+    }
+
+    @Override
+    public OrderHistory updateOrderHistory(Long orderId, OrderHistoryRequest request) {
+        OrderHistory orderHistory = getOrderHistoryById(orderId);
+        orderHistory = request.updateEntity(orderHistory);
+        UserPaymentMethods userPaymentMethod = userPaymentMethodsService.getUserPaymentMethodsByUserId(request.getUserPaymentMethodId());
+        if (userPaymentMethod == null) {
+            throw new EntityNotFoundException("userPaymentMethod not found");
+        }
+        orderHistory.setUserPaymentMethod(userPaymentMethod);
+
+        return orderHistoryRepository.save(orderHistory);
+    }
+
+    @Override
+    public void deleteOrderHistoryById(Long orderId) {
+        orderHistoryRepository.deleteById(orderId);
     }
 }
