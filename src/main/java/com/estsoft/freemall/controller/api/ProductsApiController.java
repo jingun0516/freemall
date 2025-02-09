@@ -25,6 +25,21 @@ public class ProductsApiController {
         return ResponseEntity.ok(productsService.addProduct(request.getSellerId(), request));
     }
 
+    @GetMapping("/{productId}")
+    public ResponseEntity<Products> getProduct(@PathVariable Long productId) {
+        return ResponseEntity.ok(productsService.getProductById(productId));
+    }
+
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<Boolean> deleteProduct(@PathVariable Long productId) {
+        return ResponseEntity.ok(productsService.deleteProduct(productId));
+    }
+
+    @PutMapping("/{productId}")
+    public ResponseEntity<Products> updateProduct(@PathVariable Long productId, @RequestBody ProductsRequest request) {
+        return ResponseEntity.ok(productsService.updateProduct(productId, request));
+    }
+
     @PostMapping("/discounts")
     public ResponseEntity<Products> addDiscount(@RequestBody DiscountsRequest request) {
         Products product = productsService.getProductById(request.getProductId());
