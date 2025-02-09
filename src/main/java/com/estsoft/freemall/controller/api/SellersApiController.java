@@ -5,10 +5,7 @@ import com.estsoft.freemall.entity.Sellers;
 import com.estsoft.freemall.service.SellersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/sellers")
@@ -19,5 +16,21 @@ public class SellersApiController {
     @PostMapping
     public ResponseEntity<Sellers> register(Long userId, @RequestBody SellersRequest request) {
         return ResponseEntity.ok(sellersService.registerSeller(userId, request));
+    }
+
+    @GetMapping("/{sellerId}")
+    public ResponseEntity<Sellers> getSeller(@PathVariable Long sellerId) {
+        return ResponseEntity.ok(sellersService.getSellerById(sellerId));
+    }
+
+    @DeleteMapping("/{sellerId}")
+    public ResponseEntity<Void> deleteSeller(@PathVariable Long sellerId) {
+        sellersService.deleteSeller(sellerId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{sellerId}")
+    public ResponseEntity<Sellers> updateSeller(@PathVariable Long sellerId, @RequestBody SellersRequest request) {
+        return ResponseEntity.ok(sellersService.updateSller(sellerId, request));
     }
 }
