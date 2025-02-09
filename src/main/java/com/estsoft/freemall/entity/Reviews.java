@@ -2,6 +2,7 @@ package com.estsoft.freemall.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Reviews {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +29,11 @@ public class Reviews {
 
     @Column
     private String content;
+
+    public Reviews(Integer rating, String content) {
+        this.rating = rating;
+        this.content = content;
+    }
 
     @Column(name = "created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
