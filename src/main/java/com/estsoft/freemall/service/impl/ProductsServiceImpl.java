@@ -10,6 +10,7 @@ import com.estsoft.freemall.service.CategoriesService;
 import com.estsoft.freemall.service.ManufacturersService;
 import com.estsoft.freemall.service.ProductsService;
 import com.estsoft.freemall.service.SellersService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class ProductsServiceImpl implements ProductsService {
         Manufacturers manufacturers = manufacturersService.getManufacturerByName(request.getManufacturerName());
         Sellers seller = sellersService.getSellerById(sellerId);
         if(category == null || manufacturers == null || seller == null) {
-            return null;
+            throw new EntityNotFoundException("category or manufacturers or seller not found");
         }
         product.setCategory(category);
         product.setManufacturer(manufacturers);
@@ -38,7 +39,33 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     @Override
-    public Products getProductById(Long id) {
-        return productsRepository.findById(id).orElse(null);
+    public Products getProductById(Long productId) {
+        return productsRepository.findById(productId).orElse(null);
+    }
+
+    @Override
+    public Products updateProduct(Long productId, ProductsRequest request) {
+        Products product = getProductById(productId);
+        product = request.updateEntity(product);
+
+        Categories category = categoriesService.getCategoryByName(request.getCategoryName());
+        Manufacturers manufacturers = manufacturersService.getManufacturerByName(request.getManufacturerName());
+        if(category == null || manufacturers == null) {
+            throw new EntityNotFoundException("category or manufacturers not found");
+        }
+        product.setCategory(category);
+        product.setManufacturer(manufacturers);
+
+        return productsRepository.save(product);
+    }
+
+    @Override
+    public Boolean deleteProduct(Long id) {
+        Products product = getProductById(id);
+        if(product == null) {
+            return false;
+        }
+        productsRepository.delete(product);
+        return true;
     }
 }
