@@ -14,4 +14,16 @@ public class SellersRequest {
         return new Sellers(storeName, storeDescription);
     }
 
+    public Sellers updateEntity(Sellers seller) {
+        if(!storeName.isEmpty()) {
+            seller.setStoreName(storeName);
+        }
+
+        if(!storeDescription.isEmpty()) {
+            seller.setStoreDescription(storeDescription);
+        }
+
+        return seller;
+    }
+
 }
