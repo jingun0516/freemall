@@ -23,8 +23,18 @@ public class UsersApiController {
         return ResponseEntity.ok(user);
     }
 
-    @GetMapping
-    public ResponseEntity<Users> getById(@RequestParam("id") Long id) {
-        return ResponseEntity.ok(usersService.getUserById(id));
+    @GetMapping("/{userId}")
+    public ResponseEntity<Users> getById(@PathVariable Long userId) {
+        return ResponseEntity.ok(usersService.getUserById(userId));
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Users> deleteById(@PathVariable Long userId) {
+        return ResponseEntity.ok(usersService.softDelete(userId));
+    }
+
+    @PutMapping("/{userId}")
+    public ResponseEntity<Users> update(@PathVariable Long userId, @RequestBody UsersRequest request) {
+        return ResponseEntity.ok(usersService.update(userId, request));
     }
 }
