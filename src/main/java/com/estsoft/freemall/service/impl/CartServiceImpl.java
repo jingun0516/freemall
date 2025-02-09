@@ -20,8 +20,7 @@ public class CartServiceImpl implements CartService {
         if(user == null) {
             return null;
         }
-        Cart cart = new Cart();
-        cart.setUser(user);
+        Cart cart = new Cart(user);
 
         return cartRepository.save(cart);
     }
