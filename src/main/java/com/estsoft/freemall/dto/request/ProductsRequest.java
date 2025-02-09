@@ -24,4 +24,21 @@ public class ProductsRequest {
                 .price(price)
                 .stockQuantity(stockQuantity).build();
     }
+
+    public Products updateEntity(Products entity) {
+        if(!name.isEmpty()) {
+            entity.setName(name);
+        }
+        if(!description.isEmpty()) {
+            entity.setDescription(description);
+        }
+        if(price != null) {
+            entity.setPrice(price);
+        }
+        if(stockQuantity != null) {
+            entity.setStockQuantity(stockQuantity);
+        }
+
+        return entity;
+    }
 }
