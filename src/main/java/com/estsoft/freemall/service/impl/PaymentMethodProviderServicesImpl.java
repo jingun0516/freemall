@@ -23,6 +23,7 @@ public class PaymentMethodProviderServicesImpl implements PaymentMethodProviders
             return null;
         }
         paymentMethodProviders.setPaymentMethod(paymentMethod);
+        paymentMethod.getProviders().add(paymentMethodProviders);
 
         return paymentMethodProvidersRepository.save(paymentMethodProviders);
     }
