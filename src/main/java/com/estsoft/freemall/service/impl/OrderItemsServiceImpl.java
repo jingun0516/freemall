@@ -49,4 +49,9 @@ public class OrderItemsServiceImpl implements OrderItemsService {
 
         return orderItemsRepository.save(orderItem);
     }
+
+    @Override
+    public OrderItems getOrderItem(Long orderItemId) {
+        return orderItemsRepository.findById(orderItemId).orElse(null);
+    }
 }
