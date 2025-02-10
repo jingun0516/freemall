@@ -21,4 +21,30 @@ public class ManufacturersServiceImpl implements ManufacturersService {
     public Manufacturers getManufacturerByName(String name) {
         return manufacturersRepository.findByName(name);
     }
+
+    @Override
+    public Manufacturers getManufacturerById(Long manufacturerId) {
+        return manufacturersRepository.findById(manufacturerId).orElse(null);
+    }
+
+    @Override
+    public Manufacturers updateManufacturer(Long manufacturerId, ManufacturersRequest request) {
+        Manufacturers manufacturer = getManufacturerById(manufacturerId);
+        if(manufacturer==null){
+            return null;
+        }
+
+        return manufacturersRepository.save(request.updateEntity(manufacturer));
+    }
+
+    @Override
+    public boolean deleteManufacturer(Long manufacturerId) {
+        Manufacturers manufacturer = getManufacturerById(manufacturerId);
+        if(manufacturer==null){
+            return false;
+        }
+
+        manufacturersRepository.deleteById(manufacturerId);
+        return true;
+    }
 }
