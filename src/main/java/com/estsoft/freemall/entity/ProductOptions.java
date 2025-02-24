@@ -29,4 +29,8 @@ public class ProductOptions {
     public ProductOptions(String attribute) {
         this.attribute = attribute;
     }
+
+    public void update(String attribute) {
+        this.attribute = attribute;
+    }
 }

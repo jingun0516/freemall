@@ -12,4 +12,8 @@ public class ProductOptionsRequest {
     public ProductOptions toEntity() {
         return new ProductOptions(attribute);
     }
+
+    public void updateEntity(ProductOptions productOption) {
+        productOption.update(attribute);
+    }
 }
