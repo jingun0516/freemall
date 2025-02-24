@@ -68,4 +68,19 @@ public class Products {
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
+    public void update(String name, String description, BigDecimal price, Integer stockQuantity) {
+        if (name != null && !name.isEmpty()) {
+            this.name = name;
+        }
+        if (description != null && !description.isEmpty()) {
+            this.description = description;
+        }
+        if (price != null) {
+            this.price = price;
+        }
+        if (stockQuantity != null) {
+            this.stockQuantity = stockQuantity;
+        }
+    }
 }

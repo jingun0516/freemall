@@ -25,20 +25,7 @@ public class ProductsRequest {
                 .stockQuantity(stockQuantity).build();
     }
 
-    public Products updateEntity(Products entity) {
-        if(!name.isEmpty()) {
-            entity.setName(name);
-        }
-        if(!description.isEmpty()) {
-            entity.setDescription(description);
-        }
-        if(price != null) {
-            entity.setPrice(price);
-        }
-        if(stockQuantity != null) {
-            entity.setStockQuantity(stockQuantity);
-        }
-
-        return entity;
+    public void updateEntity(Products product) {
+        product.update(name, description, price, stockQuantity);
     }
 }

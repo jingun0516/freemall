@@ -46,7 +46,7 @@ public class ProductsServiceImpl implements ProductsService {
     @Override
     public Products updateProduct(Long productId, ProductsRequest request) {
         Products product = getProductById(productId);
-        product = request.updateEntity(product);
+        request.updateEntity(product);
 
         Categories category = categoriesService.getCategoryByName(request.getCategoryName());
         Manufacturers manufacturers = manufacturersService.getManufacturerByName(request.getManufacturerName());
