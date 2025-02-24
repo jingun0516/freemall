@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class OrderApiController {
     private final OrderHistoryService orderHistoryService;
 
-    @PostMapping
-    public ResponseEntity<OrderHistory> addOrder(@RequestBody OrderHistoryRequest request) {
-        return ResponseEntity.ok(orderHistoryService.addOrderHistory(8L, request));
+    @PostMapping(("/{userId}"))
+    public ResponseEntity<OrderHistory> addOrder(@PathVariable Long userId, @RequestBody OrderHistoryRequest request) {
+        return ResponseEntity.ok(orderHistoryService.addOrderHistory(userId, request));
     }
 
     @GetMapping("/{orderId}")
