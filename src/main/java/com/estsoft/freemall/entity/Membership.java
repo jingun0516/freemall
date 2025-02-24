@@ -36,4 +36,13 @@ public class Membership {
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
     }
+
+    public void update(String level, String benefits) {
+        if(level != null) {
+            this.level = level;
+        }
+        if(benefits != null) {
+            this.benefits = benefits;
+        }
+    }
 }
