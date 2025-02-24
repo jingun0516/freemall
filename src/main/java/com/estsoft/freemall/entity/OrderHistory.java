@@ -83,4 +83,26 @@ public class OrderHistory {
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
+    public void update(String shippingAddress, BigDecimal shippingCost, String trackingNumber,
+                       String cancellationRefundInfo, String contactInfo, String orderNotes) {
+        if(shippingAddress != null) {
+            this.shippingAddress = shippingAddress;
+        }
+        if(shippingCost != null) {
+            this.shippingCost = shippingCost;
+        }
+        if(trackingNumber != null) {
+            this.trackingNumber = trackingNumber;
+        }
+        if(cancellationRefundInfo != null) {
+            this.cancellationRefundInfo = cancellationRefundInfo;
+        }
+        if(contactInfo != null) {
+            this.contactInfo = contactInfo;
+        }
+        if(orderNotes != null) {
+            this.orderNotes = orderNotes;
+        }
+    }
 }

@@ -35,25 +35,7 @@ public class OrderHistoryRequest {
                 .build();
     }
 
-    public OrderHistory updateEntity(OrderHistory entity) {
-        if(shippingAddress != null) {
-            entity.setShippingAddress(shippingAddress);
-        }
-        if(shippingCost != null) {
-            entity.setShippingCost(shippingCost);
-        }
-        if(trackingNumber != null) {
-            entity.setTrackingNumber(trackingNumber);
-        }
-        if(cancellationRefundInfo != null) {
-            entity.setCancellationRefundInfo(cancellationRefundInfo);
-        }
-        if(contactInfo != null) {
-            entity.setContactInfo(contactInfo);
-        }
-        if(orderNotes != null) {
-            entity.setOrderNotes(orderNotes);
-        }
-        return entity;
+    public void updateEntity(OrderHistory orderHistory) {
+        orderHistory.update(shippingAddress, shippingCost, trackingNumber, cancellationRefundInfo, contactInfo, orderNotes);
     }
 }

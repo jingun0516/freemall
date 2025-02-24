@@ -42,7 +42,7 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
     @Override
     public OrderHistory updateOrderHistory(Long orderId, OrderHistoryRequest request) {
         OrderHistory orderHistory = getOrderHistoryById(orderId);
-        orderHistory = request.updateEntity(orderHistory);
+        request.updateEntity(orderHistory);
         UserPaymentMethods userPaymentMethod = userPaymentMethodsService.getUserPaymentMethodsByUserId(request.getUserPaymentMethodId());
         if (userPaymentMethod == null) {
             throw new EntityNotFoundException("userPaymentMethod not found");
