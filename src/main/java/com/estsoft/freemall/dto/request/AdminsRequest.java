@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AdminsRequest {
-    Long userId;
+    private Long userId;
 
     public Admins toEntity() {
         return new Admins();
