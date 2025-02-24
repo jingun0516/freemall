@@ -40,13 +40,13 @@ public class ProductsApiController {
         return ResponseEntity.ok(productsService.updateProduct(productId, request));
     }
 
-    @PostMapping("/discounts")
-    public ResponseEntity<Products> addDiscount(@RequestBody DiscountsRequest request) {
-        Products product = productsService.getProductById(request.getProductId());
+    @PostMapping("/{productId}/discounts")
+    public ResponseEntity<Products> addDiscount(@PathVariable Long productId, @RequestBody DiscountsRequest request) {
+        Products product = productsService.getProductById(productId);
         if(product == null) {
             return ResponseEntity.notFound().build();
         }
-        Discounts discount = discountsService.addDiscount(request.getProductId(), request);
+        Discounts discount = discountsService.addDiscount(productId, request);
         product.getDiscounts().add(discount);
         return ResponseEntity.ok(product);
     }
