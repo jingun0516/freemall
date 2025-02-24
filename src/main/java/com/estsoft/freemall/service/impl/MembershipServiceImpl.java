@@ -33,7 +33,8 @@ public class MembershipServiceImpl implements MembershipService {
         if(membership == null) {
             return null;
         }
-        return membershipRepository.save(request.updateEntity(membership));
+        request.updateEntity(membership);
+        return membershipRepository.save(membership);
     }
 
     @Override
