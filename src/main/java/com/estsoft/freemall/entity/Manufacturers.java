@@ -26,4 +26,13 @@ public class Manufacturers {
             this.description = description;
         }
     }
+
+    public void update(String name, String description) {
+        if(name != null) {
+            this.name = name;
+        }
+        if(description != null) {
+            this.description = description;
+        }
+    }
 }

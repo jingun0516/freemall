@@ -33,8 +33,9 @@ public class ManufacturersServiceImpl implements ManufacturersService {
         if(manufacturer==null){
             return null;
         }
+        request.updateEntity(manufacturer);
 
-        return manufacturersRepository.save(request.updateEntity(manufacturer));
+        return manufacturersRepository.save(manufacturer);
     }
 
     @Override

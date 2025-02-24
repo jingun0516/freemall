@@ -14,13 +14,7 @@ public class ManufacturersRequest {
         return new Manufacturers(name, description);
     }
 
-    public Manufacturers updateEntity(Manufacturers manufacturers) {
-        if(name != null) {
-            manufacturers.setName(name);
-        }
-        if(description != null) {
-            manufacturers.setDescription(description);
-        }
-        return manufacturers;
+    public void updateEntity(Manufacturers manufacturers) {
+        manufacturers.update(name, description);
     }
 }
