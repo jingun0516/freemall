@@ -25,9 +25,9 @@ public class PaymentMethodsApiController {
         return ResponseEntity.ok(paymentMethodsService.addPaymentMethod(request));
     }
 
-    @PostMapping("/provider")
-    public ResponseEntity<PaymentMethodProviders> addPaymentMethodProvider(@RequestBody PaymentMethodProvidersRequest request) {
-        return ResponseEntity.ok(paymentMethodProvidersService.addPaymentMethodProvider(request));
+    @PostMapping("/{paymentMethodId}/provider")
+    public ResponseEntity<PaymentMethodProviders> addPaymentMethodProvider(@PathVariable Long paymentMethodId, @RequestBody PaymentMethodProvidersRequest request) {
+        return ResponseEntity.ok(paymentMethodProvidersService.addPaymentMethodProvider(paymentMethodId, request));
     }
 
     @PostMapping("/{userId}/{paymentMethodId}")
