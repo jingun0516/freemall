@@ -39,7 +39,8 @@ public class SellersServiceImpl implements SellersService {
         if(seller == null) {
             throw new EntityNotFoundException("Seller not found");
         }
-        return sellersRepository.save(request.updateEntity(seller));
+        request.updateEntity(seller);
+        return sellersRepository.save(seller);
     }
 
     @Override

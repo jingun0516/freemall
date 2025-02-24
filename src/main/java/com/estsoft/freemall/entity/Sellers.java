@@ -42,4 +42,13 @@ public class Sellers {
     public void prePersist(){
         registrationDate = LocalDateTime.now();
     }
+
+    public void update(String storeName, String storeDescription) {
+        if(!storeName.isEmpty()) {
+            this.storeName = storeName;
+        }
+        if(!storeDescription.isEmpty()) {
+            this.storeDescription = storeDescription;
+        }
+    }
 }
