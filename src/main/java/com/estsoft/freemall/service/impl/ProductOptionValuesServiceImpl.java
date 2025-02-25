@@ -16,9 +16,9 @@ public class ProductOptionValuesServiceImpl implements ProductOptionValuesServic
     private final ProductOptionsService productOptionsService;
 
     @Override
-    public ProductOptionValues addProductOptionValue(ProductOptionValuesRequest request) {
+    public ProductOptionValues addProductOptionValue(Long productOptionId, ProductOptionValuesRequest request) {
         ProductOptionValues productOptionValues = request.toEntity();
-        ProductOptions productOptions = productOptionsService.getProductOptionById(request.getProductOptionId());
+        ProductOptions productOptions = productOptionsService.getProductOptionById(productOptionId);
         if(productOptions == null) {
             return null;
         }
@@ -27,4 +27,23 @@ public class ProductOptionValuesServiceImpl implements ProductOptionValuesServic
 
         return productOptionValuesRepository.save(productOptionValues);
     }
+
+    @Override
+    public ProductOptionValues getProductOptionValue(Long productOptionValueId) {
+        return productOptionValuesRepository.findById(productOptionValueId).orElse(null);
+    }
+
+    @Override
+    public ProductOptionValues updateProductOptionValue(Long productOptionValueId, ProductOptionValuesRequest request) {
+        ProductOptionValues productOptionValues = getProductOptionValue(productOptionValueId);
+        productOptionValues.setValue(request.getValue());
+        return productOptionValuesRepository.save(productOptionValues);
+    }
+
+    @Override
+    public ProductOptionValues deleteProductOptionValue(Long productOptionId) {
+        return null;
+    }
+
+
 }
