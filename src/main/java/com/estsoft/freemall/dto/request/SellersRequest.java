@@ -14,4 +14,8 @@ public class SellersRequest {
         return new Sellers(storeName, storeDescription);
     }
 
+    public void updateEntity(Sellers seller) {
+        seller.update(storeName, storeDescription);
+    }
+
 }

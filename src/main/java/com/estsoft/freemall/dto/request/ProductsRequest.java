@@ -24,4 +24,8 @@ public class ProductsRequest {
                 .price(price)
                 .stockQuantity(stockQuantity).build();
     }
+
+    public void updateEntity(Products product) {
+        product.update(name, description, price, stockQuantity);
+    }
 }

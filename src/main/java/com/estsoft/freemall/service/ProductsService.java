@@ -5,5 +5,7 @@ import com.estsoft.freemall.entity.Products;
 
 public interface ProductsService {
     Products addProduct(Long sellerId, ProductsRequest request);
-    Products getProductById(Long id);
+    Products getProductById(Long productId);
+    Products updateProduct(Long productId, ProductsRequest request);
+    Boolean deleteProduct(Long productId);
 }

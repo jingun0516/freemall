@@ -25,14 +25,23 @@ public class Membership {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    public Membership(String level, String benefits) {
+        this.level = level;
+        if (!benefits.isEmpty()) {
+            this.benefits = benefits;
+        }
+    }
+
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
     }
 
-    public Membership(String level, String benefits) {
-        this.level = level;
-        if (!benefits.isEmpty()) {
+    public void update(String level, String benefits) {
+        if(level != null) {
+            this.level = level;
+        }
+        if(benefits != null) {
             this.benefits = benefits;
         }
     }

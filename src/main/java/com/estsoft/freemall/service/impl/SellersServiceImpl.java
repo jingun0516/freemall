@@ -6,6 +6,7 @@ import com.estsoft.freemall.entity.Users;
 import com.estsoft.freemall.repository.SellersRepository;
 import com.estsoft.freemall.service.SellersService;
 import com.estsoft.freemall.service.UsersService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class SellersServiceImpl implements SellersService {
 
     @Override
     public Sellers registerSeller(Long userId, SellersRequest request) {
-        Users user = usersService.getById(userId);
+        Users user = usersService.getUserById(userId);
         if(user == null) {
             return null;
         }
@@ -30,5 +31,24 @@ public class SellersServiceImpl implements SellersService {
     @Override
     public Sellers getSellerById(Long sellerId) {
         return sellersRepository.findById(sellerId).orElse(null);
+    }
+
+    @Override
+    public Sellers updateSller(Long sellerId, SellersRequest request) {
+        Sellers seller = getSellerById(sellerId);
+        if(seller == null) {
+            throw new EntityNotFoundException("Seller not found");
+        }
+        request.updateEntity(seller);
+        return sellersRepository.save(seller);
+    }
+
+    @Override
+    public void deleteSeller(Long sellerId) {
+        Sellers seller = getSellerById(sellerId);
+        if(seller == null) {
+            throw new EntityNotFoundException("Seller not found");
+        }
+        sellersRepository.delete(seller);
     }
 }

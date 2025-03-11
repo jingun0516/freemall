@@ -6,4 +6,6 @@ import com.estsoft.freemall.entity.ProductOptions;
 public interface ProductOptionsService {
     ProductOptions addProductOption(ProductOptionsRequest request);
     ProductOptions getProductOptionById(Long id);
+    ProductOptions updateProductOption(Long id, ProductOptionsRequest request);
+    Boolean deleteProductOption(Long id);
 }

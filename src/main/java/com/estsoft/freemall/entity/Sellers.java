@@ -33,13 +33,22 @@ public class Sellers {
     @OneToMany(mappedBy = "seller")
     private List<Products> products;
 
+    public Sellers(String storeName, String storeDescription) {
+        this.storeName = storeName;
+        this.storeDescription = storeDescription;
+    }
+
     @PrePersist
     public void prePersist(){
         registrationDate = LocalDateTime.now();
     }
 
-    public Sellers(String storeName, String storeDescription) {
-        this.storeName = storeName;
-        this.storeDescription = storeDescription;
+    public void update(String storeName, String storeDescription) {
+        if(!storeName.isEmpty()) {
+            this.storeName = storeName;
+        }
+        if(!storeDescription.isEmpty()) {
+            this.storeDescription = storeDescription;
+        }
     }
 }

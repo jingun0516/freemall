@@ -13,4 +13,8 @@ public class ManufacturersRequest {
     public Manufacturers toEntity() {
         return new Manufacturers(name, description);
     }
+
+    public void updateEntity(Manufacturers manufacturers) {
+        manufacturers.update(name, description);
+    }
 }

@@ -16,13 +16,14 @@ public class PaymentMethodProviderServicesImpl implements PaymentMethodProviders
     private final PaymentMethodsService paymentMethodsService;
 
     @Override
-    public PaymentMethodProviders addPaymentMethodProvider(PaymentMethodProvidersRequest request) {
+    public PaymentMethodProviders addPaymentMethodProvider(Long paymentMethodId, PaymentMethodProvidersRequest request) {
         PaymentMethodProviders paymentMethodProviders = request.toEntity();
-        PaymentMethods paymentMethod = paymentMethodsService.getPaymentMethodById(request.getPaymentMethodId());
+        PaymentMethods paymentMethod = paymentMethodsService.getPaymentMethodById(paymentMethodId);
         if(paymentMethod == null) {
             return null;
         }
         paymentMethodProviders.setPaymentMethod(paymentMethod);
+        paymentMethod.getProviders().add(paymentMethodProviders);
 
         return paymentMethodProvidersRepository.save(paymentMethodProviders);
     }

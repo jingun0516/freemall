@@ -6,4 +6,6 @@ import com.estsoft.freemall.entity.Sellers;
 public interface SellersService {
     Sellers registerSeller(Long userId, SellersRequest request);
     Sellers getSellerById(Long sellerId);
+    Sellers updateSller(Long sellerId, SellersRequest request);
+    void deleteSeller(Long sellerId);
 }

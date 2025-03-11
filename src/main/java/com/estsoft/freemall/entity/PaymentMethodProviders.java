@@ -17,7 +17,7 @@ public class PaymentMethodProviders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "payment_method_id")
     private PaymentMethods paymentMethod;
 

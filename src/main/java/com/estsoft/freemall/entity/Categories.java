@@ -29,15 +29,15 @@ public class Categories {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-    }
-
     public Categories(String name, String description) {
         this.name = name;
         if(description != null) {
             this.description = description;
         }
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
     }
 }

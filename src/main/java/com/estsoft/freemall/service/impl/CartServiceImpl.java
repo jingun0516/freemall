@@ -16,13 +16,17 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Cart addCart(Long userId) {
-        Users user = usersService.getById(userId);
+        Users user = usersService.getUserById(userId);
         if(user == null) {
             return null;
         }
-        Cart cart = new Cart();
-        cart.setUser(user);
+        Cart cart = new Cart(user);
 
         return cartRepository.save(cart);
+    }
+
+    @Override
+    public Cart getCartByUserId(Long userId) {
+        return cartRepository.getByUserId(userId);
     }
 }

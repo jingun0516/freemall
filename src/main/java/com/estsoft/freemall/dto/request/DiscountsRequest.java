@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class DiscountsRequest {
-    private Long productId;
     private BigDecimal discountRate;
     private BigDecimal discountPrice;
     private LocalDateTime startDate;

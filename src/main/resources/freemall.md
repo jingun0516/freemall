@@ -130,8 +130,8 @@ CREATE TABLE payment_methods
 (
     id         BIGINT AUTO_INCREMENT PRIMARY KEY,
     method     VARCHAR(50) NOT NULL, -- 결제 방법 (카드, 계좌 등)
-    is_active  BOOLEAN   NOT NULL DEFAULT TRUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    is_active  BOOLEAN     NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMP            DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -141,7 +141,7 @@ CREATE TABLE payment_method_providers
     id                BIGINT AUTO_INCREMENT PRIMARY KEY,
     payment_method_id BIGINT       NOT NULL, -- 결제 방법 ID
     provider          VARCHAR(100) NOT NULL, -- 제공자 (카드사, 은행 등)
-    isActive BOOLEAN NOT NULL DEFAULT TRUE,
+    isActive          BOOLEAN      NOT NULL DEFAULT TRUE,
     FOREIGN KEY (payment_method_id) REFERENCES payment_methods (id) ON DELETE CASCADE,
     UNIQUE (payment_method_id, provider)     -- 동일한 결제 방법에 중복된 제공자 없음
 );
@@ -163,7 +163,7 @@ CREATE TABLE order_history
 (
     id                       BIGINT AUTO_INCREMENT PRIMARY KEY,                                    -- 주문을 고유하게 식별하는 주문 ID
     user_id                  BIGINT         NOT NULL,                                              -- 주문을 한 사용자 ID (users 테이블과 외래키 관계)
-    order_date               DATETIME       NOT NULL,                                              -- 주문이 이루어진 날짜 및 시간
+    order_date               DATETIME,                                                             -- 주문이 이루어진 날짜 및 시간
     order_status             VARCHAR(50)    NOT NULL,                                              -- 주문 상태 (예: "주문 완료", "배송 중", "취소" 등)
     shipping_address         TEXT           NOT NULL,                                              -- 배송지 주소
     user_payment_method_id   BIGINT         NOT NULL,                                              -- 결제 방법 ID (payment_methods 테이블과 외래키 관계)

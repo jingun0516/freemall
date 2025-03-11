@@ -28,4 +28,8 @@ public class ProductOptionValues {
     public ProductOptionValues(String value) {
         this.value = value;
     }
+
+    public void update(String value) {
+        this.value = value;
+    }
 }

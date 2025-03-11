@@ -2,6 +2,7 @@ package com.estsoft.freemall.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class CartItems {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +29,10 @@ public class CartItems {
 
     @Column(name = "added_at", updatable = false, nullable = false)
     private LocalDateTime addedAt;
+
+    public CartItems(Integer quantity) {
+        this.quantity = quantity;
+    }
 
     @PrePersist
     public void prePersist() {

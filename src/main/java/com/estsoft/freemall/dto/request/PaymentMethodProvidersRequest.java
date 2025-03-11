@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PaymentMethodProvidersRequest {
-    private Long paymentMethodId;
     private String provider;
 
     public PaymentMethodProviders toEntity() {

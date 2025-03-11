@@ -2,6 +2,7 @@ package com.estsoft.freemall.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class OrderItems {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,4 +32,8 @@ public class OrderItems {
 
     @Column(name = "total_price")
     private BigDecimal totalPrice;
+
+    public OrderItems(Integer quantity) {
+        this.quantity = quantity;
+    }
 }
